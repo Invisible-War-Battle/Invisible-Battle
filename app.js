@@ -124,7 +124,7 @@ socket.on("gameover", (killed) => {
 });
 
 function load() {
-	alert("You have been drafted to fight in the Invisible War. Use arrow keys to move and space to launch a bullet. When you hear a boing sound that is not yours, you will have 5 seconds to run until you are out of range of your target. The catch? No enemy can be seen. Use the coordinates on the left hand side to help you. The range is how far back (-Z) you can be, however, your X must be exact. Kill the 25 enemies to get to PvP. Good luck...");
+	alert("You have been drafted to fight in the Invisible War. Use swipes on mobile or arrow keys on desktop to move and tap shoot to launch a bullet. When you hear a boing sound that is not yours, you will have 5 seconds to run until you are out of range of your target. The catch? No enemy can be seen. Use the coordinates on the left hand side to help you. The range is how far back (-Z) you can be, however, your X must be exact. Kill the 25 enemies to get to PvP. Good luck...");
 		choose();
 	function myfunction(tree) {
 		tree.src = "explosion.png";
@@ -279,6 +279,317 @@ function load() {
 			}
 		}
 	}
+	var xstart,ystart,xdiff,ydiff;
+	
+	document.ontouchstart = (e)=>{
+		xstart= e.touches[0].clientX;
+				ystart= e.touches[0].clientY;
+	}
+	document.ontouchmove = (e) =>{
+		xdiff=xstart - e.touches[0].clientX;
+		ydiff=ystart - e.touches[0].clientY;
+		if ( Math.abs( xdiff ) > Math.abs( ydiff ) ) {/*most significant*/
+        if ( xdiff > 0 ) {
+          b -= 50;
+					document.getElementById("universe").style.transform =
+				"translate3d(" + b + "px, " + y + "px, " + a + "px) perspective(" +(a + 5000) +"px)";
+        } else {
+             b += 50;
+					document.getElementById("universe").style.transform =
+				"translate3d(" + b + "px, " + y + "px, " + a + "px) perspective(" +(a + 5000) +"px)";
+        }                       
+    } else {
+        if ( ydiff > 0 ) {
+ a -= 50;
+					document.getElementById("universe").style.transform =
+				"translate3d(" + b + "px, " + y + "px, " + a + "px) perspective(" +(a + 5000) +"px)";
+        } else { 
+            a += 50;
+					document.getElementById("universe").style.transform =
+				"translate3d(" + b + "px, " + y + "px, " + a + "px) perspective(" +(a + 5000) +"px)";
+        }                                                                 
+    }
+		kill();
+		newgun();
+		matrix4 = new WebKitCSSMatrix(
+			window.getComputedStyle(document.getElementById("universe")).transform
+		);
+		document.getElementById("coordinates").innerHTML =
+			"You are at X: " + (-matrix4.m41 - 1000) + " Z: " + matrix4.m43;
+	}
+		document.getElementById("stats"). onclick = ()=> {
+			matrix = new WebKitCSSMatrix(
+				window.getComputedStyle(document.getElementById("bullet")).transform
+			);
+			matrix4 = new WebKitCSSMatrix(
+				window.getComputedStyle(document.getElementById("universe")).transform
+			);
+
+			matrix3 = new WebKitCSSMatrix(window.getComputedStyle(sol1).transform);
+			document.getElementById("shot").play();
+			if (fight === true) {
+				document.getElementById("ammo").innerHTML = "Ammo: ∞";
+				setTimeout(() => {
+					if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 500
+					) {
+						document.getElementById("enemyhealth").value--;
+						socket.emit("playerhit", person);
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon");
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 450
+					) {
+						document.getElementById("enemyhealth").value--;
+						socket.emit("playerhit", person);
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 400
+					) {
+						socket.emit("playerhit", person);
+						document.getElementById("enemyhealth").value--;
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 350
+					) {
+						socket.emit("playerhit", person);
+						document.getElementById("enemyhealth").value--;
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 300
+					) {
+						socket.emit("playerhit", person);
+						document.getElementById("enemyhealth").value--;
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 250
+					) {
+						document.getElementById("enemyhealth").value--;
+						socket.emit("playerhit", person);
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 200
+					) {
+						document.getElementById("enemyhealth").value--;
+						socket.emit("playerhit", person);
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 150
+					) {
+						socket.emit("playerhit", person);
+						document.getElementById("enemyhealth").value--;
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 100
+					) {
+						document.getElementById("enemyhealth").value--;
+						socket.emit("playerhit", person);
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43 + 50
+					) {
+						document.getElementById("enemyhealth").value--;
+						socket.emit("playerhit", person);
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					} else if (
+						targetmatrix.m41 === matrix4.m41 &&
+						targetmatrix.m43 === matrix4.m43
+					) {
+						document.getElementById("enemyhealth").value--;
+						socket.emit("playerhit", person);
+						if (document.getElementById("enemyhealth").value === 0) {
+							socket.emit("userwon", person);
+						}
+					}
+				}, 2000);
+			} else {
+				if (ammo === 0) {
+					alert("No ammo. reloading in 3 seconds...");
+					setTimeout(() => {
+						ammo = 20;
+						document.getElementById("ammo").innerHTML = "Ammo: " + ammo;
+					}, 3000);
+				} else {
+					ammo--;
+					document.getElementById("ammo").innerHTML = "Ammo: " + ammo;
+					matrix = new WebKitCSSMatrix(
+						window.getComputedStyle(document.getElementById("bullet")).transform
+					);
+					matrix4 = new WebKitCSSMatrix(
+						window.getComputedStyle(document.getElementById("universe")).transform
+					);
+
+					matrix3 = new WebKitCSSMatrix(window.getComputedStyle(sol1).transform);
+					if (range === 200) {
+						setTimeout(() => {
+							if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 200
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 150
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 100
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 50
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							}
+						}, 1000);
+					} else if (range === 500) {
+						setTimeout(() => {
+							if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 500
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 450
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 400
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 350
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 300
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+								}
+								pclick(sol1);
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 250
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 200
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+								}
+								pclick(sol1);
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 150
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 100
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+								}
+								pclick(sol1);
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a - 50
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								}
+							} else if (
+								matrix.m41 === matrix3.m41 - (-matrix4.m41 - 1000) &&
+								matrix3.m43 === -a
+							) {
+								document.getElementById("enemyhealth").value--;
+								if (document.getElementById("enemyhealth").value === 0) {
+									pclick(sol1);
+								} else {
+								}
+							}
+						}, 1000);
+					}
+				}
+			}
+		}
 	var rx = 0;
 	var playera = 0,
 		playerb = 0;
