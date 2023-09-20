@@ -6,12 +6,19 @@
 	<meta name="viewport" content="width=device-width">
 
 	<title>Mission Invisible | An Invisible FPS Game</title>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+
 	<meta name="description" content="Play a non violent FPS game where everything is invisible. Welcome, to Mission Invisible.">
 	<script src="socket.io.js"></script>
 	<link href="style.css" rel="stylesheet" type="text/css" />
 	<link rel="icon" href="forest.jpeg" />
 		<link rel="manifest" href="manifest.json" />
 <style>
+	#text{
+	  z-index:50;
+		position:absolute;
+		transform-style:preserve-3d;
+	}
 	#other{
 		height: 100px;
 		width: 100px;
@@ -54,36 +61,36 @@
 	#range {
 		color: black;
 		z-index: 5;
-		font-size: 20pt;
+		font-size: 10pt;
 		position: absolute;
 		top: 150px;
 	}
 	#coordinates {
 		color: black;
 		z-index: 10;
-		font-size: 20pt;
+		font-size: 10pt;
 		position: absolute;
 		top: 200px;
 	}
 	#enemy {
 		color: black;
 		z-index: 10;
-		font-size: 20pt;
+		font-size: 10pt;
 		position: absolute;
-		top: 250px;
+		top: 350px;
 	}
 	#ammo {
 		color: black;
 		z-index:105;
-		font-size: 20pt;
+		font-size: 10pt;
 		position: absolute;
-		top: 300px;
+		top: 320px;
 	}
 	#health {
 		content: "health";
   background: red;
 		height: 50px;
-		width: 50%;
+		width: 100px;
 		z-index: 5;
 		position: absolute;
 	}
@@ -93,9 +100,9 @@
 	#enemyhealth{
   background: blue;
 		height: 50px;
-		width: 50%;
+		width: 100px;
 		z-index: 5;
-		left: 50%;
+		left: 100px;
 		position: absolute;
 	}
 	#enemyhealth::-webkit-progress-value {
@@ -215,7 +222,7 @@
 		color: yellow;
 	}
 	 #healthp{
-		 left: 75%;
+		 left: 100px;
  		color: white;
 		z-index: 6;
 		position: absolute;
@@ -260,6 +267,15 @@
 		width: 100vw;
 		height: 100vh;
 	}
+	#stats{
+		position: absolute;
+		font-size: 30pt;
+		left:100px;
+		top: 350px;
+	}
+	mark{
+		font-size: 13pt;
+	}
 </style>
 	<div id="dialog" hidden = true>
 		<p id="option"></p>
@@ -285,7 +301,9 @@
 			</div>
 		</div>
 	</div>
+
 <div id="text">
+<button id="stats" >Shoot</button>
 		<p>Health</p>
 	<p id="healthp" hidden="true">Enemy Health</p>
 <progress id="health" value="5" max="5"></progress>
